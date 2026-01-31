@@ -8,8 +8,9 @@ def main():
 
 def validate(ip):
     ip = ip.strip()
-    pattern = r"^.+[0-255]{1-3}\..+[0-255]{1-3}\..+[0-255]{1-3}\..+[0-255]{1-3}$"
-    match = re.search(pattern, ip)
+    SINGLE_BLOCK = "([0-9]|1[0-9]{0,2}|2([0-4][0-9]?)?|25[0-5])" # Checks whether single block number is in range of 0-255
+    IPV4_PATTERN = rf"^{SINGLE_BLOCK}\.{SINGLE_BLOCK}\.{SINGLE_BLOCK}\.{SINGLE_BLOCK}$" #Checks whole IPV4 Pattern (4 individial blocks)
+    match = re.search(IPV4_PATTERN, ip)
 
     if match: return True
     else: return False    
