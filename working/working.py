@@ -34,12 +34,10 @@ def convert(s):
         Converted_Start_Hour = Hour_Conversion(Start_Hour, Start_Format)
         Converted_End_Hour = Hour_Conversion(End_Hour, End_Format)
 
-        print(f"Converted Start h{Converted_Start_Hour} and End h {Converted_End_Hour}")
-
-        #return f"{Start_Hour} : {Start_Min} {Start_Format} to {End_Hour} : {End_Min} {End_Format}"
+        return f"{Converted_Start_Hour}:{Start_Min:02} to {Converted_End_Hour}:{End_Min:02}"
 
 
-    else : raise ValueError
+    else : raise ValueError("Invalid time input")
 
 def Hour_Conversion(Hour, Format):
     if Format == "AM" and Hour == 12: Converted_Hour = 0 #If it's 12 midnight 24h => 00h
