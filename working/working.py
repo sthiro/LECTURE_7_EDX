@@ -25,11 +25,13 @@ def convert(s):
         else: End_Hour = match.group("End_Hour2")
 
         if match.group("End_Min1"): End_Min = match.group("End_Min1")
-        elif match.group("End_Min2"): End_Min = match.group("Start_Min2")
+        elif match.group("End_Min2"): End_Min = match.group("End_Min2")
         else: End_Min = "00" 
 
         Start_Format = match.group("Start_Format")
         End_Format = match.group("End_Format")
+
+        return f"{Start_Hour} : {Start_Min} {Start_Format} to {End_Hour} : {End_Min} {End_Format}"
 
 
     else : raise ValueError
