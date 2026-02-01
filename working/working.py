@@ -14,27 +14,41 @@ def convert(s):
     match = re.search(pattern, s)
 
     if match:
-        if match.group("Start_Hour1"): Start_Hour = match.group("Start_Hour1")
-        else: Start_Hour = match.group("Start_Hour2")
+        if match.group("Start_Hour1"): Start_Hour = int(match.group("Start_Hour1"))
+        else: Start_Hour = int(match.group("Start_Hour2"))
 
-        if match.group("Start_Min1"): Start_Min = match.group("Start_Min1")
-        elif match.group("Start_Min2"): Start_Min = match.group("Start_Min2")
-        else: Start_Min = "00" 
+        if match.group("Start_Min1"): Start_Min = int(match.group("Start_Min1"))
+        elif match.group("Start_Min2"): Start_Min = int(match.group("Start_Min2"))
+        else: Start_Min = 0 
 
-        if match.group("End_Hour1"): End_Hour = match.group("End_Hour1")
-        else: End_Hour = match.group("End_Hour2")
+        if match.group("End_Hour1"): End_Hour = int(match.group("End_Hour1"))
+        else: End_Hour = int(match.group("End_Hour2"))
 
-        if match.group("End_Min1"): End_Min = match.group("End_Min1")
-        elif match.group("End_Min2"): End_Min = match.group("End_Min2")
-        else: End_Min = "00" 
+        if match.group("End_Min1"): End_Min = int(match.group("End_Min1"))
+        elif match.group("End_Min2"): End_Min = int(match.group("End_Min2"))
+        else: End_Min = 0 
 
-        Start_Format = match.group("Start_Format")
-        End_Format = match.group("End_Format")
+        Start_Format = match.group("Start_Format")  # AM|PM
+        End_Format = match.group("End_Format")  # AM|PM
+        
+        Converted_Start_Hour = Hour_Conversion(Start_Hour, Start_Format)
+        Converted_End_Hour = Hour_Conversion(End_Hour, End_Format)
 
-        return f"{Start_Hour} : {Start_Min} {Start_Format} to {End_Hour} : {End_Min} {End_Format}"
+        print(f"Converted Start h{Converted_Start_Hour} and End h {Converted_End_Hour}")
+
+        #return f"{Start_Hour} : {Start_Min} {Start_Format} to {End_Hour} : {End_Min} {End_Format}"
 
 
     else : raise ValueError
+
+def Hour_Conversion(Hour, Format):
+    if Format == "AM" and Hour == 12: Converted_Hour = 0 #If it's 12 midnight 24h => 00h
+    if (1 <= Hour <= 11 and Format == "AM") or (Hour == 12 and Format == "PM"): Converted_Hour = Hour # if it's 1<->11 AM or 12 noon 12H hour = 24h hour
+    if (1 <= Hour <= 11) and Format == "PM": Converted_Hour = Hour + 12
+
+    return f"{Converted_Hour:02}" # Makes format in 2 digit. Ex 1 AM => 01
+
+
 
 
 if __name__ == "__main__":
