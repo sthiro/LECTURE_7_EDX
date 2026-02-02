@@ -14,10 +14,26 @@ def test_raise_error():
 
     with pytest.raises(ValueError):
         convert("1 : 4:30 PM")
+
+    with pytest.raises(ValueError):
+        convert("1 AM to 13 PM")
+
+    with pytest.raises(ValueError):
+        convert("14 AM to 1 PM")
     
+    with pytest.raises(ValueError):
+        convert("1 AM to 1:60 PM")
+
+    with pytest.raises(ValueError):
+        convert("1:60 AM to 10 PM")
+
+    with pytest.raises(ValueError):
+        convert("70:5 AM to 1 PM")
+
     with pytest.raises(ValueError):
         convert("1 AM : 4:3 PM")
 
     with pytest.raises(ValueError):
         convert("sample  Text")
+    
     
